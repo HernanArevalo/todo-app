@@ -1,0 +1,161 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url('./assets/18702139_sep09.jpg');
+    background-size: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.todos-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+.todos-container > div{
+    margin: 0 20px;
+    border-radius: 1.5rem;
+
+}
+
+/* ! Categories bar */
+
+.categories-bar{
+    width: 20%;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 40px 20px;
+    border-radius: 1.5rem;
+    box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);
+}
+
+.category-item{
+    margin: auto;
+    margin-bottom: 20px;
+    border-radius: 1.5rem;
+    padding: 20px 32px;
+    font-size: 18px;
+    font-weight: 600;
+    color: black;
+}
+
+.category-item + .active{
+    background-color: rgb(234 218 243);
+    color: rgb(150, 62, 197);
+}
+
+.category-item:hover{
+    color: rgb(171 84 219);
+    cursor: pointer;
+}
+.active-category-title{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 30px 0;
+    min-width: 800px;
+    padding: 0 20px;
+}
+.todos-types{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+}
+.todos-type{
+    width: 30%;
+    background-color: rgba(255, 255, 255, .6);
+    font-weight: 500;
+    font-size: 1.5rem;
+    padding: 20px;
+    border-radius: 1.5rem;
+    margin: 0 20px;
+
+}
+.active-category{
+    width: 60%;
+
+}
+
+
+.add-todo-icon{
+    background-color: rgb(171 84 219);
+    box-sizing: border-box;
+    border-radius: 999px;
+    border: 0px;
+    font-weight: 100;
+    font-size: 35px;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.add-todo-icon > i{
+    margin: 4px;
+}
+
+.todo-item{
+    padding: 20px;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 1.5rem;
+    box-shadow: 1px 1px 20px 1px rgba(0, 0, 0, 0.1);
+
+}
+
+.todos-type-header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 23px;
+}
+
+.todo-item > textarea{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    border-style: none;
+    resize: none;
+    padding: 0;
+    width: 100%;
+}   
+
+.todo-item > textarea:focus{
+    border-style: none;
+    outline: none;
+}
+
+.input-title{
+    font-weight: 600;
+    overflow: hidden;
+}
+
+.input-description{
+    overflow: visible;
+}
+
+.bx-check{
+    color: green;
+}
+
+.bx-trash{
+    color: red;
+}
+
+.icons-todo-item{
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+    margin-top: 0px;
+}
+
+.bx{
+    cursor: pointer;
+}
+
+.todo-item:focus{
+    background-color: red;
+}

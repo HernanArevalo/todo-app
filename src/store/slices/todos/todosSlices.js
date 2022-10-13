@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 export const todosSlice = createSlice({
     name: 'categories',
     initialState: {
-        counter: 10,
         categories: [
             {
                 name: 'Home',
@@ -18,8 +17,8 @@ export const todosSlice = createSlice({
                 completed: []
             }
         ],
-
-        categorieactive: null,
+        categorieActive: null,
+        todoActive: null,
         // active: {
         //     id: 'ABC123',
         //     title: '',
