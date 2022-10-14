@@ -8,6 +8,7 @@ export const TodosPage = () => {
     const categories = useSelector((state) => state.todos.categories )
     const dispatch = useDispatch()
 
+
     const { formState, handleInputChange, handleResetForm, newCategory, todoTitle, todoDescription } = useForm({
         newCategory: '',
         todoTitle: '',
@@ -35,6 +36,9 @@ export const TodosPage = () => {
                 <div className="category-item">
                     Home
                 </div>
+                { categories.map(category => {<div className="category-item">
+                    {category.name}
+                </div>})}
                 
                 <div className="category-item add-category">
                     <form  onSubmit={ addNewCategory }>
