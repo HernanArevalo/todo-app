@@ -31,6 +31,7 @@ body{
     padding: 40px 20px;
     border-radius: 1.5rem;
     box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
 .category-item{
@@ -41,6 +42,7 @@ body{
     font-size: 18px;
     font-weight: 600;
     color: black;
+    transition: .3s;
 }
 
 .category-item + .active{
@@ -137,13 +139,30 @@ body{
     overflow: visible;
 }
 
+.bx-left-arrow-alt, .bx-right-arrow-alt{
+    color: #888;
+}
+.bx-left-arrow-alt:hover, .bx-right-arrow-alt:hover{
+    background-color: #888;
+    color: white;
+}
 .bx-check{
     color: green;
+
+}
+.bx-check:hover{
+    background-color: green;
+    color: white;
 }
 
 .bx-trash{
     color: red;
 }
+.bx-trash:hover{
+    background-color: red;
+    color: white;
+}
+
 
 .icons-todo-item{
     display: flex;
@@ -152,10 +171,51 @@ body{
     margin-top: 0px;
 }
 
-.bx{
+.icons-todo-item > .bx{
     cursor: pointer;
+    border-radius: 999px;
+    transition: .2s;
+    padding: 4px;
 }
 
 .todo-item:focus{
     background-color: red;
 }
+
+
+.add-category form{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-category form > input{
+    transition: .2s;
+    border-style: none;
+    background-color: transparent;
+    font-size: 18px;
+    font-weight: 600;
+    pointer-events: auto;
+    width: 70%;
+}
+
+.add-category form button{
+    border: none;
+    background-color: transparent;
+}
+.add-category form button> i{
+    font-size: 23px;
+    border-radius: 999px;
+    transition: .2s;
+
+}
+
+
+.add-category form > input:hover{
+    color: black;
+}
+.add-category form > input:focus{
+    outline: none;
+}
+

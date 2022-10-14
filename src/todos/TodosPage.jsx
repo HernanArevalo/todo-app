@@ -1,6 +1,25 @@
-
+import { TodoItem } from "./components/TodoItem"
+import { useSelector, useDispatch } from 'react-redux'
+import { addCategory } from "../store/slices/todos"
+import { useForm } from "../hooks/useForm"
 
 export const TodosPage = () => {
+
+    const categories = useSelector((state) => state.todos.categories )
+    const dispatch = useDispatch()
+
+    const { formState, handleInputChange, handleResetForm, newCategory, todoTitle, todoDescription } = useForm({
+        newCategory: '',
+        todoTitle: '',
+        todoDescription: ''
+    });
+
+
+    const addNewCategory = (e) => {
+        e.preventDefault()
+
+        dispatch(addCategory(e.target[0].value))
+    }
 
 
 
@@ -16,7 +35,24 @@ export const TodosPage = () => {
                 <div className="category-item">
                     Home
                 </div>
-                <div className="add-category">Add category</div>
+                
+                <div className="category-item add-category">
+                    <form  onSubmit={ addNewCategory }>
+                        <input  type="text"
+                                placeholder="Add category"
+                                name="newCategory"
+                                value={ newCategory } 
+                                onChange={ handleInputChange }>
+                            
+                        </input>
+                        <button type="submit">
+                            <i className='bx bx-check'></i>
+                        </button>
+
+                    </form>
+
+                </div>
+                
             </nav>
             <div className="active-category">
                 <div className="active-category-title">
@@ -30,9 +66,11 @@ export const TodosPage = () => {
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
+                        
                         <div className="todo-item">
 
                         </div>
+
                     </div>
                     <div className="doing todos-type">
                         <div className="todos-type-header">
@@ -41,20 +79,9 @@ export const TodosPage = () => {
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
-                        <div className="todo-item">
 
-                            <textarea className="input-title" rows="2" placeholder="Title" maxLength="30"></textarea>
-                            <textarea className="input-description" rows="3" placeholder="Description" ></textarea>
+                        { <TodoItem /> }
 
-
-                            <div className="icons-todo-item">
-                                <i className='bx bx-left-arrow-alt' ></i>
-                                <i className='bx bx-right-arrow-alt'></i>
-                                <i className='bx bx-check'></i>
-                                <i className='bx bx-trash' ></i>
-                            </div>
-
-                        </div>
                     </div>
                     <div className="completed todos-type">
                         <div className="todos-type-header">

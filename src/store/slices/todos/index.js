@@ -1,2 +1,2 @@
 
-export * from './todosSlices'
+export * from './todosSlice'
