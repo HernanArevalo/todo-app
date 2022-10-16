@@ -198,6 +198,8 @@ body{
     font-weight: 600;
     pointer-events: auto;
     width: 70%;
+    color: pink;
+
 }
 
 .add-category form button{

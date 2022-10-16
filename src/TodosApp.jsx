@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { TodosPage } from './todos/TodosPage'
+import { AppRouter } from './router/AppRouter'
 
 export const TodosApp = () => {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <TodosPage />
+      <AppRouter />
     </>
   )
 }

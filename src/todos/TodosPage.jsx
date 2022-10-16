@@ -20,6 +20,7 @@ export const TodosPage = () => {
         e.preventDefault()
 
         dispatch(addCategory(e.target[0].value))
+        handleResetForm()
     }
 
 
@@ -27,20 +28,14 @@ export const TodosPage = () => {
     return (
         <div className="todos-container">
             <nav className="categories-bar">
-                <div className="category-item">
-                    Home
-                </div>
-                <div className="category-item active">
-                    Work
-                </div>
-                <div className="category-item">
-                    Home
-                </div>
-                { categories.map(category => {<div className="category-item">
-                    {category.name}
-                </div>})}
+
+                { categories.map(category => 
+                    (<div className="category-item animate__animated animate__fadeInLeft">
+                        {category.name}
+                    </div>)
+                )}
                 
-                <div className="category-item add-category">
+                <div className="category-item add-category animate__animated animate__fadeInLeft">
                     <form  onSubmit={ addNewCategory }>
                         <input  type="text"
                                 placeholder="Add category"
