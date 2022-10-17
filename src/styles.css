@@ -46,7 +46,7 @@ body{
 }
 
 .category-item + .active{
-    background-color: rgb(234 218 243);
+    background-color: rgb(171 84 219);
     color: rgb(150, 62, 197);
 }
 
