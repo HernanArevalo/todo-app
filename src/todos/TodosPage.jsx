@@ -1,7 +1,9 @@
 import { TodoItem } from "./components/TodoItem"
 import { useSelector, useDispatch } from 'react-redux'
-import { addCategory } from "../store/slices/todos"
+import { addNewCategory } from "../store/todos"
 import { useForm } from "../hooks/useForm"
+import { startLogout } from "../store/auth"
+import { startNewCategory } from "../store/todos/thunks"
 
 export const TodosPage = () => {
 
@@ -16,14 +18,20 @@ export const TodosPage = () => {
     });
 
 
-    const addNewCategory = (e) => {
+    const addCategory = (e) => {
         e.preventDefault()
+        if (e.target[0].value.trim != ''){
+            dispatch( startNewCategory(e.target[0].value) )
 
-        dispatch(addCategory(e.target[0].value))
+        }
         handleResetForm()
     }
 
+    const onLogout = () => {
+        dispatch( startLogout() );
+    }
 
+    const { displayName } = useSelector( state => state.auth );
 
     return (
         <div className="todos-container">
@@ -36,7 +44,7 @@ export const TodosPage = () => {
                 )}
                 
                 <div className="category-item add-category animate__animated animate__fadeInLeft">
-                    <form  onSubmit={ addNewCategory }>
+                    <form  onSubmit={ addCategory }>
                         <input  type="text"
                                 placeholder="Add category"
                                 name="newCategory"
@@ -54,8 +62,17 @@ export const TodosPage = () => {
                 
             </nav>
             <div className="active-category">
-                <div className="active-category-title">
-                    <span>Home</span>
+                <div className="header-container">
+                    <div className="active-category-title">
+                        <span>Home</span>
+                    </div>
+                    <div className="logged-header">
+                        <div className="user-name">{ displayName }</div>
+                        <div className="logout-button" onClick={ onLogout }>
+                            <i className='bx bx-log-out'></i>
+                        </div>
+                    </div>
+
                 </div>
                 <div className="todos-types">
                     <div className="todos todos-type">

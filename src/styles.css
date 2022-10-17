@@ -54,13 +54,44 @@ body{
     color: rgb(171 84 219);
     cursor: pointer;
 }
-.active-category-title{
+
+/* ! MAIN CONTAINER */
+
+.header-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     font-size: 1.5rem;
+    align-items: center;
+}
+
+.active-category-title{
     font-weight: 600;
     margin: 30px 0;
-    min-width: 800px;
     padding: 0 20px;
 }
+
+.logged-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logout-button{
+    background-color: rgb(109, 27, 27);
+    color: #fff;
+    border-radius: 999px;
+    height: 40px;
+    width: 40px;
+    margin-left: 20px;
+
+}
+
+.logout-button i{
+    margin-left: 5px;
+    line-height: 40px;
+}
+
 .todos-types{
     display: flex;
     flex-direction: row;
@@ -81,7 +112,6 @@ body{
     width: 60%;
 
 }
-
 
 .add-todo-icon{
     background-color: rgb(171 84 219);
