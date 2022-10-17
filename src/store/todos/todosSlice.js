@@ -6,27 +6,14 @@ export const todosSlice = createSlice({
     initialState: {
         isSaving: false,
         messageSaved: '',
-        categories: [
-            {
-                name: 'Home',
-                todo: [],
-                doing: [],
-                completed: []
-            },
-            {
-                name: 'Work',
-                todo: [],
-                doing: [],
-                completed: []
-            }
-    ]},
-        categorieActive: null,
+        categories: null,
+        categoryActive: null,
         todoActive: null,
         // active: {
         //     id: 'ABC123',
         //     title: '',
         //     body: '',
-    
+    },
     reducers: {
         addNewCategory: (state, action ) => {
 
@@ -37,10 +24,19 @@ export const todosSlice = createSlice({
                 completed: []
             })   
         },
+
         savingNewCategory: ( state ) => {
             state.isSaving = true;
         },
 
+        setActiveCategory: ( state, action ) => {
+            state.categoryActive = action.payload
+        },
+
+        setCategories: (state, action ) => {
+            state.categories = action.payload;
+        },
+        
     }
 });
 
@@ -48,6 +44,8 @@ export const todosSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { addNewCategory,
                savingNewCategory,
+               setActiveCategory,
+               setCategories,
             
             
             } = todosSlice.actions;

@@ -1,9 +1,10 @@
 import { TodoItem } from "./components/TodoItem"
 import { useSelector, useDispatch } from 'react-redux'
-import { addNewCategory } from "../store/todos"
+import { addNewCategory, setActiveCategory } from "../store/todos"
 import { useForm } from "../hooks/useForm"
 import { startLogout } from "../store/auth"
-import { startNewCategory } from "../store/todos/thunks"
+import { startNewCategory, startNewTodo } from "../store/todos/thunks"
+import { CategoryItem } from "./components/CategoryItem"
 
 export const TodosPage = () => {
 
@@ -27,8 +28,19 @@ export const TodosPage = () => {
         handleResetForm()
     }
 
+    const addTodo = () => {
+
+        dispatch( startNewTodo() )
+
+    }
+
     const onLogout = () => {
         dispatch( startLogout() );
+    }
+
+    const OnClickCategory = (category) => {
+        dispatch( setActiveCategory( category.name ) )
+        console.log(category)
     }
 
     const { displayName } = useSelector( state => state.auth );
@@ -37,11 +49,10 @@ export const TodosPage = () => {
         <div className="todos-container">
             <nav className="categories-bar">
 
-                { categories.map(category => 
-                    (<div className="category-item animate__animated animate__fadeInLeft">
-                        {category.name}
-                    </div>)
-                )}
+                { categories?.map(category =>(
+                    <CategoryItem key={ category.id } {...category} />
+                    
+                ))}
                 
                 <div className="category-item add-category animate__animated animate__fadeInLeft">
                     <form  onSubmit={ addCategory }>
@@ -78,7 +89,8 @@ export const TodosPage = () => {
                     <div className="todos todos-type">
                         <div className="todos-type-header">
                             <span>To Do</span>
-                            <button className="add-todo-icon">
+                            <button className="add-todo-icon"
+                                    onClick={ startNewTodo() }>
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
@@ -91,7 +103,8 @@ export const TodosPage = () => {
                     <div className="doing todos-type">
                         <div className="todos-type-header">
                             <span>Doing</span>
-                            <button className="add-todo-icon">
+                            <button className="add-todo-icon"
+                                    onClick={ startNewTodo() }>
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
@@ -102,7 +115,8 @@ export const TodosPage = () => {
                     <div className="completed todos-type">
                         <div className="todos-type-header">
                             <span>Completed</span>
-                            <button className="add-todo-icon">
+                            <button className="add-todo-icon"
+                                    onClick={ startNewTodo() }>
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>

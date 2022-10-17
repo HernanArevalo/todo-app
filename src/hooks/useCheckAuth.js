@@ -4,7 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 import { FirebaseAuth } from '../firebase/config';
 import { login, logout } from '../store/auth';
-// import { startLoadingNotes } from '../store/todos';
+import { startLoadingCategories } from '../store/todos/thunks';
 
 
 
@@ -20,7 +20,7 @@ export const useCheckAuth = () => {
 
             const { uid, email, displayName, photoURL } = user;
             dispatch( login({ uid, email, displayName, photoURL }) );
-            // dispatch( startLoadingNotes() );
+            dispatch( startLoadingCategories() );
         })
     }, []);
 
