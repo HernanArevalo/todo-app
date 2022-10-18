@@ -10,7 +10,7 @@ export const TodosPage = () => {
 
     const categories = useSelector((state) => state.todos.categories )
     const dispatch = useDispatch()
-
+    const categoryActive = useSelector((state) => state.todos.categoryActive?.name )
 
     const { formState, handleInputChange, handleResetForm, newCategory, todoTitle, todoDescription } = useForm({
         newCategory: '',
@@ -22,7 +22,7 @@ export const TodosPage = () => {
     const addCategory = (e) => {
         e.preventDefault()
         if (e.target[0].value.trim != ''){
-            dispatch( startNewCategory(e.target[0].value) )
+            dispatch( startNewCategory( e.target[0].value ) )
 
         }
         handleResetForm()
@@ -38,12 +38,11 @@ export const TodosPage = () => {
         dispatch( startLogout() );
     }
 
-    const OnClickCategory = (category) => {
-        dispatch( setActiveCategory( category.name ) )
-        console.log(category)
-    }
-
     const { displayName } = useSelector( state => state.auth );
+
+    const todos = useSelector(state => state.todos.categoryActive?.todo )
+    console.log(todos)
+
 
     return (
         <div className="todos-container">
@@ -75,7 +74,8 @@ export const TodosPage = () => {
             <div className="active-category">
                 <div className="header-container">
                     <div className="active-category-title">
-                        <span>Home</span>
+                        { categoryActive && <span>{ categoryActive }</span> }
+
                     </div>
                     <div className="logged-header">
                         <div className="user-name">{ displayName }</div>
@@ -95,9 +95,10 @@ export const TodosPage = () => {
                             </button>
                         </div>
                         
-                        <div className="todo-item">
+                        { todos?.map( todo =>
+                            <TodoItem todo={todo}/> 
 
-                        </div>
+                        )}
 
                     </div>
                     <div className="doing todos-type">
@@ -109,7 +110,10 @@ export const TodosPage = () => {
                             </button>
                         </div>
 
-                        { <TodoItem /> }
+                        { todos?.map( todo => 
+                            <TodoItem todo={todo}/> 
+
+                        )}
 
                     </div>
                     <div className="completed todos-type">
@@ -120,9 +124,12 @@ export const TodosPage = () => {
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
-                        <div className="todo-item">
 
-                        </div>
+                        { todos?.map( todo =>
+                            <TodoItem todo={todo}/> 
+
+                        )}
+
                     </div>
 
                 </div>

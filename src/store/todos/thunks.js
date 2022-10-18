@@ -1,7 +1,9 @@
-import { collection, doc, setDoc } from "firebase/firestore/lite";
+import { collectionGroup, collection, doc, setDoc, getDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
 import { loadCategories } from "../../helpers/loadCategories";
-import { addNewCategory, savingNewCategory, setCategories } from "./todosSlice"
+import { loadTodos } from "../../helpers/loadTodos";
+import { testingRequests } from "../../helpers/testingRequests";
+import { addNewCategory, savingNewCategory, setActiveCategory, setCategories } from "./todosSlice"
 
 
 export const startNewCategory = ( categoryName ) => {
@@ -18,7 +20,7 @@ export const startNewCategory = ( categoryName ) => {
             completed: []
         }
 
-        const newDoc = doc( collection( FirebaseDB, `${ uid }/todos/categories`))
+        const newDoc = doc( collection( FirebaseDB, `${ uid }/`))
         await setDoc( newDoc, newCategory );
         
         
@@ -26,9 +28,7 @@ export const startNewCategory = ( categoryName ) => {
 
         dispatch( addNewCategory( categoryName ))
 
-    }
-
-}
+}}
 
 export const startNewTodo = ( categoryId, typeOfTodo = 'todo' ) => {
     return async(dispatch, getState) => {
@@ -42,7 +42,7 @@ export const startNewTodo = ( categoryId, typeOfTodo = 'todo' ) => {
             description: 'asd',
         }
 
-        const newDoc = doc( collection( FirebaseDB, `${ uid }/todos/categories/${categoryId}/${typeOfTodo}/`))
+        const newDoc = doc( collection( FirebaseDB, `${ uid }/${categoryId}/${typeOfTodo}/`))
         await setDoc( newDoc, newTodo );
         
         
@@ -61,10 +61,31 @@ export const startLoadingCategories = () => {
         if ( !uid ) throw new Error('El UID del usuario no existe');
         
         const categories = await loadCategories ( uid )
+
         dispatch( setCategories( categories ) )
+}}
+
+export const startActiveCategory = ( name, id ) => {
+    return async(dispatch, getState) =>{
+        
+        const { uid } = getState().auth;
+
+        const docRef = doc(FirebaseDB, uid, id);
+        const docSnap = await getDoc(docRef);
+        console.log(docSnap.data())
+
+        dispatch( setActiveCategory( { name, id, ...docSnap.data() } ) );
+
     }
 }
 
 
 
-// ! CARGAR CATEGORIAS EN EL LOGIN
+export const startLoadingTodos = () => {
+    return async(dispatch, getState ) => {
+
+
+    }
+}
+
+

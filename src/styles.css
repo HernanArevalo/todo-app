@@ -43,16 +43,18 @@ body{
     font-weight: 600;
     color: black;
     transition: .3s;
-}
-
-.category-item + .active{
-    background-color: rgb(171 84 219);
-    color: rgb(150, 62, 197);
-}
-
-.category-item:hover{
-    color: rgb(171 84 219);
     cursor: pointer;
+}
+
+.category-active{
+    background-color: rgb(171 84 219);
+    color: white;
+}
+
+.category-inactive:hover{
+    cursor: pointer;
+    background-color: rgb(238, 227, 243);
+
 }
 
 /* ! MAIN CONTAINER */
@@ -136,7 +138,9 @@ body{
     margin-top: 20px;
     border-radius: 1.5rem;
     box-shadow: 1px 1px 20px 1px rgba(0, 0, 0, 0.1);
-
+    height: auto;
+    transition: height .5s ease-in-out;
+    max-height: 500px;
 }
 
 .todos-type-header{
@@ -177,11 +181,11 @@ body{
     background-color: #888;
     color: white;
 }
-.bx-check{
+.bx-save{
     color: green;
 
 }
-.bx-check:hover{
+.bx-save:hover{
     background-color: green;
     color: white;
 }
