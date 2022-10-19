@@ -1,4 +1,4 @@
-import { collectionGroup, collection, doc, setDoc, getDoc } from "firebase/firestore/lite";
+import { collectionGroup, collection, doc, setDoc, getDoc, getDocs } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
 import { loadCategories } from "../../helpers/loadCategories";
 import { loadTodos } from "../../helpers/loadTodos";
@@ -27,21 +27,23 @@ export const startNewCategory = ( categoryName ) => {
 
 }}
 
-export const startNewTodo = ( categoryId, typeOfTodo ) => {
+export const startNewTodo = ( typeOfTodo, categoryId  ) => {
     return async(dispatch, getState) => {
 
+        console.log('startNewTodo')
         // dispatch( savingNewCategory )
 
         const { uid } = getState().auth;
 
         const newTodo = {
+            type: typeOfTodo,
             title: '',
             description: '',
         }
 
-        const newDoc = doc( collection( FirebaseDB, `${ uid }/${categoryId}/${typeOfTodo}/`))
+        const newDoc = doc( collection( FirebaseDB, `${ uid }/${categoryId}/todos`))
         await setDoc( newDoc, newTodo );
-        
+        console.log(newDoc.id)
         
 
     }
@@ -64,11 +66,22 @@ export const startActiveCategory = ( name, id ) => {
         
         const { uid } = getState().auth;
 
-        const docRef = doc(FirebaseDB, uid, id);
-        const docSnap = await getDoc(docRef);
-        console.log(docSnap.data())
+        const todos = []
 
-        dispatch( setActiveCategory( { name, id, ...docSnap.data() } ) );
+        const collectionRef = collection( FirebaseDB, `${ uid }/${id}/todos` );
+        const docs = await getDocs(collectionRef);
+    
+        docs.forEach( doc => {
+            todos.push({ id: doc.id, ...doc.data() });
+        });
+
+        const activeCategory = {
+            name: name,
+            id: id,
+            todos: todos
+        }
+
+        dispatch( setActiveCategory( activeCategory ) );
 
     }
 }

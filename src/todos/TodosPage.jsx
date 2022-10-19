@@ -10,8 +10,12 @@ export const TodosPage = () => {
 
     const categories = useSelector((state) => state.todos.categories )
     const dispatch = useDispatch()
-    const categoryActive = useSelector((state) => state.todos.categoryActive?.name )
-    const categoryId = useSelector((state) => state.todos.categoryActive?.id )
+    const { displayName } = useSelector( state => state.auth );
+    const ActiveCategoryName = useSelector((state) => state.todos.ActiveCategory?.name )
+    const ActiveCategoryeId = useSelector((state) => state.todos.ActiveCategory?.id )
+    const ActiveCategoryTodos = useSelector(state => state.todos.ActiveCategory?.todos )
+    console.log( ActiveCategoryName )
+
 
     const { formState, handleInputChange, handleResetForm, newCategory, todoTitle, todoDescription } = useForm({
         newCategory: '',
@@ -29,19 +33,24 @@ export const TodosPage = () => {
         handleResetForm()
     }
 
-    const addTodo = (categoryId, typeOfTodo ) => {
-        console.log('plus button clicked')
-        dispatch( startNewTodo(categoryId, typeOfTodo  ) )
-
+    const addTodo = () => {
+        console.log('Add todo todo')
+        dispatch( startNewTodo( 'todo', ActiveCategoryId  ) )
+    }
+    const addDoing = () => {
+        console.log('Add doing todo')
+        dispatch( startNewTodo( 'doing', ActiveCategoryId  ) )
+    }
+    const addCompleted = () => {
+        console.log('Add completed todo')
+        dispatch( startNewTodo( 'completed', ActiveCategoryId  ) )
     }
 
     const onLogout = () => {
         dispatch( startLogout() );
     }
 
-    const { displayName } = useSelector( state => state.auth );
 
-    const todos = useSelector(state => state.todos.categoryActive?.todo )
     // console.log(todos)
 
 
@@ -75,7 +84,7 @@ export const TodosPage = () => {
             <div className="active-category">
                 <div className="header-container">
                     <div className="active-category-title">
-                        { categoryActive && <span>{ categoryActive }</span> }
+                        { ActiveCategoryName && <span>{ ActiveCategoryName }</span> }
 
                     </div>
                     <div className="logged-header">
@@ -91,13 +100,13 @@ export const TodosPage = () => {
                         <div className="todos-type-header">
                             <span>To Do</span>
                             <button className="add-todo-icon"
-                                    onClick={ addTodo(categoryId, 'todo') }>
+                                    onClick={ addTodo }>
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
                         
-                        { todos?.map( todo =>
-                            <TodoItem todo={todo}/> 
+                        { ActiveCategoryTodos?.filter(todo => todo.type == 'todo').map( todo =>
+                            <TodoItem todo={todo} key={ todo.id }/> 
 
                         )}
 
@@ -106,13 +115,13 @@ export const TodosPage = () => {
                         <div className="todos-type-header">
                             <span>Doing</span>
                             <button className="add-todo-icon"
-                                    onClick={ addTodo(categoryId, 'doing') }>
+                                    onClick={ addDoing }>
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
 
-                        { todos?.map( todo => 
-                            <TodoItem todo={todo}/> 
+                        { ActiveCategoryTodos?.filter(todo => todo.type == 'doing').map( todo => 
+                            <TodoItem todo={todo} key={ todo.id }/> 
 
                         )}
 
@@ -121,14 +130,13 @@ export const TodosPage = () => {
                         <div className="todos-type-header">
                             <span>Completed</span>
                             <button className="add-todo-icon"
-                                    onClick={ addTodo(categoryId, 'completed') }>
+                                    onClick={ addCompleted }>
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
 
-                        { todos?.map( todo =>
-                            <TodoItem todo={todo}/> 
-
+                        { ActiveCategoryTodos?.filter(todo => todo.type == 'completed').map( todo => 
+                            <TodoItem todo={todo} key={ todo.id }/> 
                         )}
 
                     </div>

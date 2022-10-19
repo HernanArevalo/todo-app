@@ -7,13 +7,12 @@ export const todosSlice = createSlice({
         isSaving: false,
         messageSaved: '',
         categories: [],
-        categoryActive: null,
-        // categoryActive: {
+        ActiveCategory: null,
+        // ActiveCategory: {
         //     id: 'ABC123',
         //     name: '',
-        //     todos: [],
-        //     doing: [],
-        //     completed: [],
+        //     todos: []
+        // }
         todoActive: null,
         // active: {
         //     id: 'ABC123',
@@ -36,12 +35,13 @@ export const todosSlice = createSlice({
         },
 
         setActiveCategory: ( state, action ) => {
-            state.categoryActive = action.payload
+            state.ActiveCategory = action.payload
         },
 
         setCategories: (state, action ) => {
             state.categories = action.payload
         },
+        
         setNewTodo: (state, action) => {
 
         }
