@@ -14,10 +14,7 @@ export const startNewCategory = ( categoryName ) => {
         const { uid } = getState().auth;
 
         const newCategory = {
-            name: categoryName,
-            todo: [],
-            doing: [],
-            completed: []
+            name: categoryName
         }
 
         const newDoc = doc( collection( FirebaseDB, `${ uid }/`))
@@ -30,7 +27,7 @@ export const startNewCategory = ( categoryName ) => {
 
 }}
 
-export const startNewTodo = ( categoryId, typeOfTodo = 'todo' ) => {
+export const startNewTodo = ( categoryId, typeOfTodo ) => {
     return async(dispatch, getState) => {
 
         // dispatch( savingNewCategory )
@@ -38,17 +35,14 @@ export const startNewTodo = ( categoryId, typeOfTodo = 'todo' ) => {
         const { uid } = getState().auth;
 
         const newTodo = {
-            title: 'ASD',
-            description: 'asd',
+            title: '',
+            description: '',
         }
 
         const newDoc = doc( collection( FirebaseDB, `${ uid }/${categoryId}/${typeOfTodo}/`))
         await setDoc( newDoc, newTodo );
         
         
-        newCategory.id = newDoc.id;  
-
-        dispatch( addNewCategory( categoryName ))
 
     }
 

@@ -11,6 +11,7 @@ export const TodosPage = () => {
     const categories = useSelector((state) => state.todos.categories )
     const dispatch = useDispatch()
     const categoryActive = useSelector((state) => state.todos.categoryActive?.name )
+    const categoryId = useSelector((state) => state.todos.categoryActive?.id )
 
     const { formState, handleInputChange, handleResetForm, newCategory, todoTitle, todoDescription } = useForm({
         newCategory: '',
@@ -28,9 +29,9 @@ export const TodosPage = () => {
         handleResetForm()
     }
 
-    const addTodo = () => {
-
-        dispatch( startNewTodo() )
+    const addTodo = (categoryId, typeOfTodo ) => {
+        console.log('plus button clicked')
+        dispatch( startNewTodo(categoryId, typeOfTodo  ) )
 
     }
 
@@ -41,7 +42,7 @@ export const TodosPage = () => {
     const { displayName } = useSelector( state => state.auth );
 
     const todos = useSelector(state => state.todos.categoryActive?.todo )
-    console.log(todos)
+    // console.log(todos)
 
 
     return (
@@ -90,7 +91,7 @@ export const TodosPage = () => {
                         <div className="todos-type-header">
                             <span>To Do</span>
                             <button className="add-todo-icon"
-                                    onClick={ startNewTodo() }>
+                                    onClick={ addTodo(categoryId, 'todo') }>
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
@@ -105,7 +106,7 @@ export const TodosPage = () => {
                         <div className="todos-type-header">
                             <span>Doing</span>
                             <button className="add-todo-icon"
-                                    onClick={ startNewTodo() }>
+                                    onClick={ addTodo(categoryId, 'doing') }>
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
@@ -120,7 +121,7 @@ export const TodosPage = () => {
                         <div className="todos-type-header">
                             <span>Completed</span>
                             <button className="add-todo-icon"
-                                    onClick={ startNewTodo() }>
+                                    onClick={ addTodo(categoryId, 'completed') }>
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>

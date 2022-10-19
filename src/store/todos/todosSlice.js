@@ -42,6 +42,9 @@ export const todosSlice = createSlice({
         setCategories: (state, action ) => {
             state.categories = action.payload
         },
+        setNewTodo: (state, action) => {
+
+        }
         
     }
 });
