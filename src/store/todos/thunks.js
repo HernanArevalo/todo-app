@@ -3,7 +3,7 @@ import { FirebaseDB } from "../../firebase/config";
 import { loadCategories } from "../../helpers/loadCategories";
 import { loadTodos } from "../../helpers/loadTodos";
 import { testingRequests } from "../../helpers/testingRequests";
-import { addNewCategory, savingNewCategory, setActiveCategory, setCategories } from "./todosSlice"
+import { addNewCategory, savingNewCategory, setActiveCategory, setActiveTodo, setCategories, setNewTodo } from "./todosSlice"
 
 
 export const startNewCategory = ( categoryName ) => {
@@ -30,7 +30,6 @@ export const startNewCategory = ( categoryName ) => {
 export const startNewTodo = ( typeOfTodo, categoryId  ) => {
     return async(dispatch, getState) => {
 
-        console.log('startNewTodo')
         // dispatch( savingNewCategory )
 
         const { uid } = getState().auth;
@@ -40,14 +39,13 @@ export const startNewTodo = ( typeOfTodo, categoryId  ) => {
             title: '',
             description: '',
         }
+        console.log('startNewTodo')
+        dispatch( setNewTodo( newTodo ));
 
         const newDoc = doc( collection( FirebaseDB, `${ uid }/${categoryId}/todos`))
         await setDoc( newDoc, newTodo );
-        console.log(newDoc.id)
         
-
     }
-
 }
 
 export const startLoadingCategories = () => {
@@ -86,12 +84,28 @@ export const startActiveCategory = ( name, id ) => {
     }
 }
 
-
-
-export const startLoadingTodos = () => {
+export const startActiveTodo = ( todo ) => {
     return async(dispatch, getState ) => {
 
+        console.log( todo )
+        dispatch( setActiveTodo( todo ) )
+    }
+}
 
+
+export const startLoadingTodos = ( id ) => {
+    return async(dispatch, getState ) => {
+
+        const todos = []
+
+        const collectionRef = collection( FirebaseDB, `${ uid }/${id}/todos` );
+        const docs = await getDocs(collectionRef);
+    
+        docs.forEach( doc => {
+            todos.push( todos );
+        });
+
+        dispatch( setActiveTodos( todos ))
     }
 }
 

@@ -203,10 +203,12 @@ body{
 
 
 .icons-todo-item{
+    width: 100%;
     display: flex;
     justify-content: space-between;
     text-align: right;
     margin-top: 0px;
+    box-sizing: border-box;
 }
 
 .icons-todo-item > .bx{

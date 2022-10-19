@@ -11,11 +11,9 @@ export const TodosPage = () => {
     const categories = useSelector((state) => state.todos.categories )
     const dispatch = useDispatch()
     const { displayName } = useSelector( state => state.auth );
-    const ActiveCategoryName = useSelector((state) => state.todos.ActiveCategory?.name )
-    const ActiveCategoryeId = useSelector((state) => state.todos.ActiveCategory?.id )
-    const ActiveCategoryTodos = useSelector(state => state.todos.ActiveCategory?.todos )
-    console.log( ActiveCategoryName )
-
+    const activeCategoryName = useSelector((state) => state.todos.activeCategory?.name )
+    const activeCategoryId = useSelector((state) => state.todos.activeCategory?.id )
+    const activeCategoryTodos = useSelector(state => state.todos.activeCategory?.todos )
 
     const { formState, handleInputChange, handleResetForm, newCategory, todoTitle, todoDescription } = useForm({
         newCategory: '',
@@ -34,24 +32,19 @@ export const TodosPage = () => {
     }
 
     const addTodo = () => {
-        console.log('Add todo todo')
-        dispatch( startNewTodo( 'todo', ActiveCategoryId  ) )
+        dispatch( startNewTodo( 'todo', activeCategoryId  ) )
     }
     const addDoing = () => {
-        console.log('Add doing todo')
-        dispatch( startNewTodo( 'doing', ActiveCategoryId  ) )
+        dispatch( startNewTodo( 'doing', activeCategoryId  ) )
     }
     const addCompleted = () => {
-        console.log('Add completed todo')
-        dispatch( startNewTodo( 'completed', ActiveCategoryId  ) )
+        dispatch( startNewTodo( 'completed', activeCategoryId  ) )
     }
 
     const onLogout = () => {
         dispatch( startLogout() );
     }
 
-
-    // console.log(todos)
 
 
     return (
@@ -83,8 +76,8 @@ export const TodosPage = () => {
             </nav>
             <div className="active-category">
                 <div className="header-container">
-                    <div className="active-category-title">
-                        { ActiveCategoryName && <span>{ ActiveCategoryName }</span> }
+                    <div className="active-category-title animate__animated animate__fadeInLeft">
+                        { activeCategoryName && <span className="animate__animated animate__fadeInLeft">{ activeCategoryName }</span> }
 
                     </div>
                     <div className="logged-header">
@@ -105,8 +98,8 @@ export const TodosPage = () => {
                             </button>
                         </div>
                         
-                        { ActiveCategoryTodos?.filter(todo => todo.type == 'todo').map( todo =>
-                            <TodoItem todo={todo} key={ todo.id }/> 
+                        { activeCategoryTodos?.filter(todo => todo.type == 'todo').map( todo =>
+                            <TodoItem todo={todo} key={ todo.id } /> 
 
                         )}
 
@@ -120,7 +113,7 @@ export const TodosPage = () => {
                             </button>
                         </div>
 
-                        { ActiveCategoryTodos?.filter(todo => todo.type == 'doing').map( todo => 
+                        { activeCategoryTodos?.filter(todo => todo.type == 'doing').map( todo => 
                             <TodoItem todo={todo} key={ todo.id }/> 
 
                         )}
@@ -135,7 +128,7 @@ export const TodosPage = () => {
                             </button>
                         </div>
 
-                        { ActiveCategoryTodos?.filter(todo => todo.type == 'completed').map( todo => 
+                        { activeCategoryTodos?.filter(todo => todo.type == 'completed').map( todo => 
                             <TodoItem todo={todo} key={ todo.id }/> 
                         )}
 

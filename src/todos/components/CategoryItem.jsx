@@ -7,7 +7,7 @@ import { startActiveCategory } from '../../store/todos/thunks';
 export const CategoryItem = ({ name, id }) => {
 
     const dispatch = useDispatch();
-    const categoryActive = useSelector((state) => state.todos.categoryActive)
+    const ActiveCategory = useSelector((state) => state.todos.ActiveCategory)
 
     const OnClickCategory = ( ) => {
         dispatch( startActiveCategory( name, id ) );
@@ -17,7 +17,7 @@ export const CategoryItem = ({ name, id }) => {
 
   return (
     <div 
-         className={ categoryActive?.id === id ? 
+         className={ ActiveCategory?.id === id ? 
                      "category-item animate__animated animate__fadeInLeft category-active":
                      "category-item animate__animated animate__fadeInLeft category-inactive"
                     } 
