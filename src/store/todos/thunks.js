@@ -23,8 +23,7 @@ export const startNewCategory = ( categoryName ) => {
         newCategory.id = newDoc.id;  
 
         dispatch( addNewCategory( categoryName ))
-
-}}
+}};
 
 export const startNewTodo = ( typeOfTodo, categoryId  ) => {
     return async(dispatch, getState) => {
@@ -44,8 +43,7 @@ export const startNewTodo = ( typeOfTodo, categoryId  ) => {
         const newDoc = doc( collection( FirebaseDB, `${ uid }/${categoryId}/todos`))
         await setDoc( newDoc, newTodo );
         
-    }
-}
+}};
 
 export const startLoadingCategories = () => {
     return async(dispatch, getState) =>{
@@ -56,7 +54,7 @@ export const startLoadingCategories = () => {
         const categories = await loadCategories ( uid )
 
         dispatch( setCategories( categories ) )
-}}
+}};
 
 export const startActiveCategory = ( name, id ) => {
     return async(dispatch, getState) =>{
@@ -80,15 +78,13 @@ export const startActiveCategory = ( name, id ) => {
 
         dispatch( setActiveCategory( activeCategory ) );
 
-    }
-}
+}};
 
 export const startActiveTodo = ( todo ) => {
     return async(dispatch, getState ) => {
 
         dispatch( setActiveTodo( todo ) )
-    }
-}
+}};
 
 
 export const startLoadingTodos = ( id ) => {
@@ -103,8 +99,35 @@ export const startLoadingTodos = ( id ) => {
             todos.push( todos );
         });
 
-        dispatch( setActiveTodos( todos ))
-    }
-}
+        dispatch( setActiveTodo( todos ))
+}};
+
+export const startSavingTodo = ( newTitle, newDescription ) =>{
+    return async(dispatch, getState) => {
+        const { uid } = getState().auth;
+        const activeCategoryId = getState().todos.activeCategory?.id;
+        const activeTodoId = getState().todos.activeTodo?.id;
+        const activeTodoType = getState().todos.activeTodo?.type;
 
 
+        const newActiveTodo = {
+            description:newDescription,
+            type: activeTodoType,
+            title: newTitle
+        }
+
+        dispatch( setActiveTodo( { id:activeTodoId, ...newActiveTodo} ));
+
+
+        const newDoc = doc( FirebaseDB, `${ uid }/${activeCategoryId}/todos/${activeTodoId}` );
+        await setDoc( newDoc, newActiveTodo );
+
+}};
+
+export const startDeletingTodo = (  ) =>{
+    return async(dispatch, getState) => {
+
+
+
+
+}};

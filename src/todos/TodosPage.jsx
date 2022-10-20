@@ -7,13 +7,13 @@ import { startNewCategory, startNewTodo } from "../store/todos/thunks"
 import { CategoryItem } from "./components/CategoryItem"
 
 export const TodosPage = () => {
-
-    const categories = useSelector((state) => state.todos.categories )
-    const dispatch = useDispatch()
+    
+    const dispatch = useDispatch();
+    const categories = useSelector((state) => state.todos.categories );
     const { displayName } = useSelector( state => state.auth );
-    const activeCategoryName = useSelector((state) => state.todos.activeCategory?.name )
-    const activeCategoryId = useSelector((state) => state.todos.activeCategory?.id )
-    const activeCategoryTodos = useSelector(state => state.todos.activeCategory?.todos )
+    const activeCategoryName = useSelector((state) => state.todos.activeCategory?.name );
+    const activeCategoryId = useSelector((state) => state.todos.activeCategory?.id );
+    const activeCategoryTodos = useSelector(state => state.todos.activeCategory?.todos );
 
     const { formState, handleInputChange, handleResetForm, newCategory, todoTitle, todoDescription } = useForm({
         newCategory: '',
@@ -25,25 +25,18 @@ export const TodosPage = () => {
     const addCategory = (e) => {
         e.preventDefault()
         if (e.target[0].value.trim != ''){
-            dispatch( startNewCategory( e.target[0].value ) )
+            dispatch( startNewCategory( e.target[0].value ) );
 
         }
-        handleResetForm()
+        handleResetForm();
     }
 
-    const addTodo = () => {
-        dispatch( startNewTodo( 'todo', activeCategoryId  ) )
-    }
-    const addDoing = () => {
-        dispatch( startNewTodo( 'doing', activeCategoryId  ) )
-    }
-    const addCompleted = () => {
-        dispatch( startNewTodo( 'completed', activeCategoryId  ) )
-    }
+    const addTodo = () => { dispatch( startNewTodo('todo', activeCategoryId ))};
+    const addDoing = () => { dispatch( startNewTodo('doing', activeCategoryId ))};
+    const addCompleted = () => { dispatch( startNewTodo('completed', activeCategoryId ))};
 
-    const onLogout = () => {
-        dispatch( startLogout() );
-    }
+    const onLogout = () => { dispatch( startLogout() ) };
+
 
 
 
@@ -88,7 +81,7 @@ export const TodosPage = () => {
                     </div>
 
                 </div>
-                <div className="todos-types">
+                <div className="todos-types animate__animated animate__fadeIn">
                     <div className="todos todos-type">
                         <div className="todos-type-header">
                             <span>To Do</span>

@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
-import { startActiveTodo } from "../../store/todos/thunks";
+import { startActiveTodo, startSavingTodo } from "../../store/todos/thunks";
 
 export const TodoItem = ({ todo }) => {
 
-  const dispatch = useDispatch()
-  const activeTodoId = useSelector( (state) => state.todos.activeTodo?.id )
+  const dispatch = useDispatch();
+  const activeTodoId = useSelector( (state) => state.todos.activeTodo?.id );
 
 
   const { formState, handleInputChange, handleResetForm, title, description } = useForm({
@@ -15,25 +15,36 @@ export const TodoItem = ({ todo }) => {
     description: todo.description,
   });
 
-  // useEffect(() => {
-  //   console.log( activeTodoId )
+  const [ElementClicked, setElementClicked] = useState(null);
 
-  // }, [ activeTodoId ])
+//   window.onclick = e => {
+//     setElementClicked(e.target);
+//     console.log(ElementClicked);  // to get the element
+// };
+
+  useEffect(() => {
+
+    if (activeTodoId !== undefined){
+      dispatch( startSavingTodo( title, description ) );
+    }
+
+  }, [ title, description ]);
   
-  // ? disable todo buttons
-  const todoItem = document.querySelector('.todo-item')
-  const [TodoFocus, setTodoFocus] = useState(false)
-  todoItem,addEventListener('focusin', (event)=>{
-    setTodoFocus(true)
 
-  })
-  todoItem,addEventListener('focusout', (event)=>{
-    setTodoFocus(true)
-    // console.log('focusout')
-  })
+  // ? disable todo buttons
+  const todoItem = document.querySelector('.todo-item');
+  const [TodoFocus, setTodoFocus] = useState(false);
+  todoItem,addEventListener('focusin', (event)=>{ setTodoFocus(true) });
+  todoItem,addEventListener('focusout', (event)=>{ setTodoFocus(true) });
+
 
   const onClickTodoItem = () => {
     dispatch( startActiveTodo(todo) )
+  };
+
+  const onClickSaveTodo = () =>{
+
+
   }
 
 
@@ -60,7 +71,7 @@ export const TodoItem = ({ todo }) => {
           <div className="icons-todo-item animate__animated animate__fadeInDown">
               <i className='bx bx-left-arrow-alt' ></i>
               <i className='bx bx-right-arrow-alt'></i>
-              <i className='bx bx-save'></i>
+              <i className='bx bx-save' onClick={ onClickSaveTodo }></i>
               <i className='bx bx-trash' ></i>
           </div>
           :''
