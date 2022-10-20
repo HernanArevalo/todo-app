@@ -2,7 +2,6 @@ import { collectionGroup, collection, doc, setDoc, getDoc, getDocs } from "fireb
 import { FirebaseDB } from "../../firebase/config";
 import { loadCategories } from "../../helpers/loadCategories";
 import { loadTodos } from "../../helpers/loadTodos";
-import { testingRequests } from "../../helpers/testingRequests";
 import { addNewCategory, savingNewCategory, setActiveCategory, setActiveTodo, setCategories, setNewTodo } from "./todosSlice"
 
 
@@ -87,7 +86,6 @@ export const startActiveCategory = ( name, id ) => {
 export const startActiveTodo = ( todo ) => {
     return async(dispatch, getState ) => {
 
-        console.log( todo )
         dispatch( setActiveTodo( todo ) )
     }
 }

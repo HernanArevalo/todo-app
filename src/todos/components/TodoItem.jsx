@@ -7,20 +7,29 @@ import { startActiveTodo } from "../../store/todos/thunks";
 export const TodoItem = ({ todo }) => {
 
   const dispatch = useDispatch()
+  const activeTodoId = useSelector( (state) => state.todos.activeTodo?.id )
+
 
   const { formState, handleInputChange, handleResetForm, title, description } = useForm({
     title: todo.title,
     description: todo.description,
   });
 
+  // useEffect(() => {
+  //   console.log( activeTodoId )
+
+  // }, [ activeTodoId ])
+  
   // ? disable todo buttons
   const todoItem = document.querySelector('.todo-item')
   const [TodoFocus, setTodoFocus] = useState(false)
   todoItem,addEventListener('focusin', (event)=>{
     setTodoFocus(true)
+
   })
   todoItem,addEventListener('focusout', (event)=>{
-    setTodoFocus(false)
+    setTodoFocus(true)
+    // console.log('focusout')
   })
 
   const onClickTodoItem = () => {
@@ -29,7 +38,7 @@ export const TodoItem = ({ todo }) => {
 
 
   return (
-    <div className="todo-item" key={todo.id} onClick={ onClickTodoItem }>
+    <div className="todo-item" key={ todo.id } id={ todo.id } onClick={ onClickTodoItem }>
 
         <textarea className="input-title" 
                   onChange={ handleInputChange }
@@ -47,7 +56,7 @@ export const TodoItem = ({ todo }) => {
 
         </textarea>
 
-        { true?
+        { TodoFocus && todo.id == activeTodoId ?
           <div className="icons-todo-item animate__animated animate__fadeInDown">
               <i className='bx bx-left-arrow-alt' ></i>
               <i className='bx bx-right-arrow-alt'></i>
