@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
-import { startActiveTodo, startSavingTodo } from "../../store/todos/thunks";
+import { startActiveTodo, startDeletingTodo, startSavingTodo } from "../../store/todos/thunks";
 
 export const TodoItem = ({ todo }) => {
 
@@ -39,13 +39,13 @@ export const TodoItem = ({ todo }) => {
 
 
   const onClickTodoItem = () => {
-    dispatch( startActiveTodo(todo) )
+    dispatch( startActiveTodo(todo) );
   };
 
-  const onClickSaveTodo = () =>{
+  const OnClickDeleteTodo = () =>{
+    dispatch( startDeletingTodo() );
 
-
-  }
+  };
 
 
   return (
@@ -72,7 +72,7 @@ export const TodoItem = ({ todo }) => {
               <i className='bx bx-left-arrow-alt' ></i>
               <i className='bx bx-right-arrow-alt'></i>
               <i className='bx bx-save' onClick={ onClickSaveTodo }></i>
-              <i className='bx bx-trash' ></i>
+              <i className='bx bx-trash' onClick={ OnClickDeleteTodo }></i>
           </div>
           :''
         }
