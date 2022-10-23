@@ -43,7 +43,7 @@ export const TodoItem = ({ todo }) => {
   };
 
   const OnClickDeleteTodo = () =>{
-    dispatch( startDeletingTodo() );
+    dispatch( startDeletingTodo( todo.id ) );
 
   };
 
@@ -71,7 +71,7 @@ export const TodoItem = ({ todo }) => {
           <div className="icons-todo-item animate__animated animate__fadeInDown">
               <i className='bx bx-left-arrow-alt' ></i>
               <i className='bx bx-right-arrow-alt'></i>
-              <i className='bx bx-save' onClick={ onClickSaveTodo }></i>
+              <i className='bx bx-save' onClick={ () => {} }></i>
               <i className='bx bx-trash' onClick={ OnClickDeleteTodo }></i>
           </div>
           :''

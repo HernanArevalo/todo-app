@@ -2,7 +2,7 @@ body{
     margin: 0;
     padding: 0;
     background-image: url('./assets/18702139_sep09.jpg');
-    background-size: 100%;
+    background-size: 114%;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -47,17 +47,18 @@ body{
 }
 
 .category-active{
-    background-color: rgb(171 84 219);
+    background-color: rgb(96, 192, 112);
     color: white;
 }
 
 .category-inactive:hover{
     cursor: pointer;
-    background-color: rgb(238, 227, 243);
+    background-color: rgb(228, 243, 227);
 
 }
 
 /* ! MAIN CONTAINER */
+
 
 .header-container{
     display: flex;
@@ -80,7 +81,7 @@ body{
 }
 
 .logout-button{
-    background-color: rgb(109, 27, 27);
+    background-color: rgb(96, 192, 112);
     color: #fff;
     border-radius: 999px;
     height: 40px;
@@ -118,7 +119,7 @@ body{
 }
 
 .add-todo-icon{
-    background-color: rgb(171 84 219);
+    background-color: rgb(96, 192, 112);
     box-sizing: border-box;
     border-radius: 999px;
     border: 0px;
@@ -134,6 +135,11 @@ body{
 
 .add-todo-icon > i{
     margin: 4px;
+}
+
+.add-todo-icon:disabled{
+    background-color: rgb(189, 189, 189);
+    opacity: .6;
 }
 
 .todo-item{
@@ -239,7 +245,7 @@ body{
     font-weight: 600;
     pointer-events: auto;
     width: 70%;
-    color: pink;
+    color: rgb(95, 165, 100);
 
 }
 

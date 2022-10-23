@@ -31,6 +31,11 @@ export const TodosPage = () => {
         handleResetForm();
     }
 
+    const addButton = document.querySelectorAll('.add-todo-icon')
+
+    addButton.disabled = true
+
+
     const addTodo = () => { dispatch( startNewTodo('todo', activeCategoryId ))};
     const addDoing = () => { dispatch( startNewTodo('doing', activeCategoryId ))};
     const addCompleted = () => { dispatch( startNewTodo('completed', activeCategoryId ))};
@@ -85,7 +90,7 @@ export const TodosPage = () => {
                     <div className="todos todos-type">
                         <div className="todos-type-header">
                             <span>To Do</span>
-                            <button className="add-todo-icon"
+                            <button className="add-todo-icon" disabled={activeCategoryId == null}
                                     onClick={ addTodo }>
                                 <i className='bx bx-plus'></i>
                             </button>
@@ -100,7 +105,7 @@ export const TodosPage = () => {
                     <div className="doing todos-type">
                         <div className="todos-type-header">
                             <span>Doing</span>
-                            <button className="add-todo-icon"
+                            <button className="add-todo-icon" disabled={activeCategoryId == null}
                                     onClick={ addDoing }>
                                 <i className='bx bx-plus'></i>
                             </button>
@@ -115,7 +120,7 @@ export const TodosPage = () => {
                     <div className="completed todos-type">
                         <div className="todos-type-header">
                             <span>Completed</span>
-                            <button className="add-todo-icon"
+                            <button className="add-todo-icon" disabled={activeCategoryId == null}
                                     onClick={ addCompleted }>
                                 <i className='bx bx-plus'></i>
                             </button>

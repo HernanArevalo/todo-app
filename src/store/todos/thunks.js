@@ -1,8 +1,8 @@
-import { collectionGroup, collection, doc, setDoc, getDoc, getDocs } from "firebase/firestore/lite";
+import { collectionGroup, collection, doc, setDoc, getDoc, getDocs, deleteDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
 import { loadCategories } from "../../helpers/loadCategories";
 import { loadTodos } from "../../helpers/loadTodos";
-import { addNewCategory, savingNewCategory, setActiveCategory, setActiveTodo, setCategories, setNewTodo } from "./todosSlice"
+import { addNewCategory, savingNewCategory, setActiveCategory, setActiveCategoryTodos, setActiveTodo, setCategories, setNewTodo } from "./todosSlice"
 
 
 export const startNewCategory = ( categoryName ) => {
@@ -110,6 +110,7 @@ export const startSavingTodo = ( newTitle, newDescription ) =>{
         const activeTodoType = getState().todos.activeTodo?.type;
 
 
+
         const newActiveTodo = {
             description:newDescription,
             type: activeTodoType,
@@ -124,10 +125,16 @@ export const startSavingTodo = ( newTitle, newDescription ) =>{
 
 }};
 
-export const startDeletingTodo = (  ) =>{
+export const startDeletingTodo = ( todoId ) =>{
     return async(dispatch, getState) => {
+        const { uid } = getState().auth;
+        const todos = getState().todos.activeCategory?.todos
+        const activeCategoryId = getState().todos.activeCategory?.id;
+
+        const todosUploaded = todos.filter(todo => todo.id != todoId);
+
+        dispatch( setActiveCategoryTodos(todosUploaded) );
+        await deleteDoc(doc(FirebaseDB, `${ uid }/${activeCategoryId}/todos/${ todoId }`));
 
 
-
-
-}};
+    }};

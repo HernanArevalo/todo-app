@@ -36,6 +36,11 @@ export const todosSlice = createSlice({
         setActiveCategory: ( state, action ) => {
             state.activeCategory = action.payload
         },
+
+        setActiveCategoryTodos: ( state, action ) => {
+            state.activeCategory.todos = action.payload
+        },     
+
         setActiveTodo: ( state, action ) => {
             state.activeTodo = action.payload
 
@@ -48,16 +53,20 @@ export const todosSlice = createSlice({
         setNewTodo: (state,action) => {
             console.log('setNewTodo')
             state.activeCategory.todos.push( action.payload )
+        },
+        deleteTodo: (state, action) => {
+
+
+
         }
-        
     }
 });
-
 
 // Action creators are generated for each case reducer function
 export const { addNewCategory,
                savingNewCategory,
                setActiveCategory,
+               setActiveCategoryTodos,
                setActiveTodo,
                setCategories,
                setNewTodo
