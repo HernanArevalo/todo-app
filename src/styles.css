@@ -57,6 +57,25 @@ body{
 
 }
 
+.add-category-button:enabled{
+    background-color: rgb(96, 192, 112);
+    padding: 4px;
+    color: black;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.add-category-button i{
+    padding: 0;
+}
+.add-category-button:disabled{
+    background-color: rgb(193, 194, 193);
+    padding: 4px;
+    color: black;
+    border-radius: 999px;
+    cursor: auto;
+    opacity: .6;
+}
 /* ! MAIN CONTAINER */
 
 
@@ -88,6 +107,7 @@ body{
     width: 40px;
     margin-left: 20px;
     cursor: pointer;
+    border: 2px solid rgb(255, 255, 255);
 
 }
 
@@ -140,6 +160,7 @@ body{
 .add-todo-icon:disabled{
     background-color: rgb(189, 189, 189);
     opacity: .6;
+    cursor: auto;
 }
 
 .todo-item{

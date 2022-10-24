@@ -57,13 +57,13 @@ export const TodosPage = () => {
                 <div className="category-item add-category animate__animated animate__fadeInLeft">
                     <form  onSubmit={ addCategory }>
                         <input  type="text"
-                                placeholder="Add category"
+                                placeholder="Add a category"
                                 name="newCategory"
                                 value={ newCategory } 
                                 onChange={ handleInputChange }>
                             
                         </input>
-                        <button type="submit">
+                        <button type="submit" className="add-category-button" disabled={newCategory == ''}>
                             <i className='bx bx-check'></i>
                         </button>
 
