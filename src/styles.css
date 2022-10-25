@@ -26,7 +26,7 @@ body{
 /* ! Categories bar */
 
 .categories-bar{
-    width: 20%;
+    width: 15%;
     background-color: rgba(255, 255, 255, 1);
     padding: 40px 20px;
     border-radius: 1.5rem;
@@ -100,16 +100,21 @@ body{
 }
 
 .logout-button{
-    background-color: rgb(96, 192, 112);
-    color: #fff;
+    background-color: #fff;
+    color: rgb(96, 192, 112);
     border-radius: 999px;
     height: 40px;
     width: 40px;
     margin-left: 20px;
     cursor: pointer;
-    border: 2px solid rgb(255, 255, 255);
+    transition: .3s ease-in-out;
 
 }
+.logout-button:hover{
+    background-color: rgb(96, 192, 112);
+    color: #fff;
+}
+
 
 .logout-button i{
     margin-left: 5px;
@@ -124,7 +129,7 @@ body{
     
 }
 .todos-type{
-    width: 30%;
+    width: 25%;
     background-color: rgba(255, 255, 255, .6);
     font-weight: 500;
     font-size: 1.5rem;
@@ -134,7 +139,7 @@ body{
 
 }
 .active-category{
-    width: 60%;
+    width: 50%;
 
 }
 
@@ -162,6 +167,8 @@ body{
     opacity: .6;
     cursor: auto;
 }
+
+/*! TODO ITEM */
 
 .todo-item{
     padding: 20px;
@@ -205,12 +212,22 @@ body{
     overflow: visible;
 }
 
-.bx-left-arrow-alt, .bx-right-arrow-alt{
-    color: #888;
+.icons-todo-item button{
+    background-color: transparent;
+    border: transparent;
+    border-radius: 999px;
 }
-.bx-left-arrow-alt:hover, .bx-right-arrow-alt:hover{
-    background-color: #888;
+
+.todo-arrow-button:disabled{
+    color: #999999;
+    cursor: default;
+
+}
+
+.todo-arrow-button:hover:enabled{
+    background-color: black;
     color: white;
+
 }
 .bx-save{
     color: green;
@@ -233,13 +250,20 @@ body{
 .icons-todo-item{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     text-align: right;
     margin-top: 0px;
     box-sizing: border-box;
 }
 
-.icons-todo-item > .bx{
+.icons-todo-item > button{
+    padding: 0;
+
+
+}
+
+.icons-todo-item > button > .bx{
+    font-size: 23px;
     cursor: pointer;
     border-radius: 999px;
     transition: .2s;

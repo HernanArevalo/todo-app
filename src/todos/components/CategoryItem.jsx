@@ -15,9 +15,9 @@ export const CategoryItem = ({ name, id }) => {
 
   return (
     <div 
-         className={ ActiveCategory?.id === id ? 
-                     "category-item animate__animated animate__fadeInLeft category-active":
-                     "category-item animate__animated animate__fadeInLeft category-inactive"
+         className={ ActiveCategory?.id !== id ? 
+                     "category-item animate__animated animate__fadeInLeft category-inactive":
+                     "category-item animate__animated animate__fadeInLeft category-active"
                     } 
          onClick={ OnClickCategory }>
         { name }

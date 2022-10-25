@@ -18,11 +18,13 @@ export const todosSlice = createSlice({
         //     id: 'ABC123',
         //     title: '',
         //     description: '',
+        //     type: ''
     },
     reducers: {
         addNewCategory: (state, action ) => {
             state.categories.push({
-                name: action.payload,
+                name: action.payload.name,
+                id: action.payload.id,
                 todo: [],
                 doing: [],
                 completed: []
@@ -35,6 +37,7 @@ export const todosSlice = createSlice({
 
         setActiveCategory: ( state, action ) => {
             state.activeCategory = action.payload
+            
         },
 
         setActiveCategoryTodos: ( state, action ) => {
@@ -43,7 +46,12 @@ export const todosSlice = createSlice({
 
         setActiveTodo: ( state, action ) => {
             state.activeTodo = action.payload
-
+            state.activeCategory.todos.map((todo, i)=>{
+                
+                if (todo.id == state.activeTodo.id){
+                    state.activeCategory.todos[i] = action.payload
+                }
+            })
         },
 
         setCategories: (state, action ) => {
@@ -54,11 +62,8 @@ export const todosSlice = createSlice({
             console.log('setNewTodo')
             state.activeCategory.todos.push( action.payload )
         },
-        deleteTodo: (state, action) => {
 
 
-
-        }
     }
 });
 
@@ -69,7 +74,7 @@ export const { addNewCategory,
                setActiveCategoryTodos,
                setActiveTodo,
                setCategories,
-               setNewTodo
+               setNewTodo,
             
             
             } = todosSlice.actions;

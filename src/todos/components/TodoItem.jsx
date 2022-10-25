@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
-import { startActiveTodo, startDeletingTodo, startSavingTodo } from "../../store/todos/thunks";
+import { startActiveTodo, startChangeTodoType, startDeletingTodo, startSavingTodo } from "../../store/todos/thunks";
 
 export const TodoItem = ({ todo }) => {
 
@@ -42,10 +42,18 @@ export const TodoItem = ({ todo }) => {
     dispatch( startActiveTodo(todo) );
   };
 
-  const OnClickDeleteTodo = () =>{
+  const OnClickDeleteTodo = () => {
     dispatch( startDeletingTodo( todo.id ) );
 
   };
+
+  const onClickLeftArrow = () => {
+    dispatch( startChangeTodoType( 'left' ) );
+  }
+
+  const onClickRightArrow = () => {
+    dispatch( startChangeTodoType( 'right' ) );
+  }
 
 
   return (
@@ -69,10 +77,18 @@ export const TodoItem = ({ todo }) => {
 
         { TodoFocus && todo.id == activeTodoId ?
           <div className="icons-todo-item animate__animated animate__fadeInDown">
-              <i className='bx bx-left-arrow-alt' ></i>
-              <i className='bx bx-right-arrow-alt'></i>
-              <i className='bx bx-save' onClick={ () => {} }></i>
-              <i className='bx bx-trash' onClick={ OnClickDeleteTodo }></i>
+              <button className="todo-button todo-arrow-button" 
+                      disabled={todo.type === 'todo'}
+                      onClick={ onClickLeftArrow }
+                ><i className='bx bx-left-arrow-alt' ></i>
+              </button>
+              <button className="todo-button todo-arrow-button" 
+                      disabled={todo.type === 'completed'}
+                      onClick={ onClickRightArrow }
+                ><i className='bx bx-right-arrow-alt'></i>
+              </button>
+              <button className="todo-button"><i className='bx bx-save' onClick={ () => {} }></i></button>
+              <button className="todo-button"><i className='bx bx-trash' onClick={ OnClickDeleteTodo }></i></button>
           </div>
           :''
         }

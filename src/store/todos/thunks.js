@@ -13,16 +13,15 @@ export const startNewCategory = ( categoryName ) => {
         const { uid } = getState().auth;
 
         const newCategory = {
-            name: categoryName
+            name: categoryName,
         }
 
         const newDoc = doc( collection( FirebaseDB, `${ uid }/`))
         await setDoc( newDoc, newCategory );
         
-        
         newCategory.id = newDoc.id;  
 
-        dispatch( addNewCategory( categoryName ))
+        dispatch( addNewCategory( newCategory ))
 }};
 
 export const startNewTodo = ( typeOfTodo, categoryId  ) => {
@@ -37,10 +36,10 @@ export const startNewTodo = ( typeOfTodo, categoryId  ) => {
             title: '',
             description: '',
         }
-        console.log('startNewTodo')
+
         dispatch( setNewTodo( newTodo ));
 
-        const newDoc = doc( collection( FirebaseDB, `${ uid }/${categoryId}/todos`))
+        const newDoc = doc( collection( FirebaseDB, `${ uid }/${categoryId}/todos`));
         await setDoc( newDoc, newTodo );
         
 }};
@@ -51,9 +50,9 @@ export const startLoadingCategories = () => {
         const { uid } = getState().auth;
         if ( !uid ) throw new Error('El UID del usuario no existe');
         
-        const categories = await loadCategories ( uid )
+        const categories = await loadCategories ( uid );
 
-        dispatch( setCategories( categories ) )
+        dispatch( setCategories( categories ) );
 }};
 
 export const startActiveCategory = ( name, id ) => {
@@ -83,14 +82,16 @@ export const startActiveCategory = ( name, id ) => {
 export const startActiveTodo = ( todo ) => {
     return async(dispatch, getState ) => {
 
-        dispatch( setActiveTodo( todo ) )
+        dispatch( setActiveTodo( todo ) );
 }};
 
 
 export const startLoadingTodos = ( id ) => {
     return async(dispatch, getState ) => {
+        const { uid } = getState().auth;
 
-        const todos = []
+        console.log('startLoadingTodos')
+        const todos = [];
 
         const collectionRef = collection( FirebaseDB, `${ uid }/${id}/todos` );
         const docs = await getDocs(collectionRef);
@@ -99,7 +100,7 @@ export const startLoadingTodos = ( id ) => {
             todos.push( todos );
         });
 
-        dispatch( setActiveTodo( todos ))
+        dispatch( setActiveCategoryTodos( todos ));
 }};
 
 export const startSavingTodo = ( newTitle, newDescription ) =>{
@@ -112,10 +113,10 @@ export const startSavingTodo = ( newTitle, newDescription ) =>{
 
 
         const newActiveTodo = {
-            description:newDescription,
+            description: newDescription,
             type: activeTodoType,
             title: newTitle
-        }
+        };
 
         dispatch( setActiveTodo( { id:activeTodoId, ...newActiveTodo} ));
 
@@ -128,7 +129,7 @@ export const startSavingTodo = ( newTitle, newDescription ) =>{
 export const startDeletingTodo = ( todoId ) =>{
     return async(dispatch, getState) => {
         const { uid } = getState().auth;
-        const todos = getState().todos.activeCategory?.todos
+        const todos = getState().todos.activeCategory?.todos;
         const activeCategoryId = getState().todos.activeCategory?.id;
 
         const todosUploaded = todos.filter(todo => todo.id != todoId);
@@ -138,3 +139,42 @@ export const startDeletingTodo = ( todoId ) =>{
 
 
     }};
+
+export const startChangeTodoType = ( arrowDirection ) => {
+    return async( dispatch, getState) =>{
+        const { id:activeCategoryId, todos:activeCategoryTodos } = getState().todos.activeCategory;
+        const { uid } = getState().auth;
+        const todos = getState().todos.activeCategory?.todos;
+        const todo = getState().todos.activeTodo;
+
+        var newType = ''
+
+        if (todo.type == 'todo'){
+            newType = 'doing';
+        }else if (todo.type == 'doing' && arrowDirection == 'left'){
+            newType = 'todo';
+        }else if (todo.type == 'doing' && arrowDirection == 'right'){
+            newType = 'completed';
+        }else{
+            newType = 'doing'
+        };
+        
+        const newTodo = {   
+            ...todo,
+            type: newType,
+        };
+
+        
+        await setDoc(doc( FirebaseDB, 
+                          `${ uid }/${activeCategoryId}/todos/${ todo.id }`),
+                        {   type: newType,
+                            title: todo.title,
+                            description: todo.description
+                        }
+                        );
+                        
+        dispatch( setActiveTodo( newTodo ))  
+    }
+
+
+}
