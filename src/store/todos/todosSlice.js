@@ -62,7 +62,7 @@ export const todosSlice = createSlice({
             console.log('setNewTodo')
             state.activeCategory.todos.push( action.payload )
         },
-
+        
 
     }
 });

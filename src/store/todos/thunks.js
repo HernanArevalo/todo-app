@@ -137,8 +137,23 @@ export const startDeletingTodo = ( todoId ) =>{
         dispatch( setActiveCategoryTodos(todosUploaded) );
         await deleteDoc(doc(FirebaseDB, `${ uid }/${activeCategoryId}/todos/${ todoId }`));
 
+    }
+};
 
-    }};
+export const startDeletingCategory = ( id ) => {
+    return async(dispatch, getState ) => {
+        const { uid } = getState().auth;
+        const categories = getState().todos.categories;
+
+        console.log('startDeletingCategory')
+
+        const categoriesUploaded = categories.filter(category => category.id != id);
+
+        dispatch( setCategories( categoriesUploaded ));
+        await deleteDoc(doc(FirebaseDB, `${ uid }/${id}`));
+    }
+}
+
 
 export const startChangeTodoType = ( arrowDirection ) => {
     return async( dispatch, getState) =>{
@@ -175,6 +190,5 @@ export const startChangeTodoType = ( arrowDirection ) => {
                         
         dispatch( setActiveTodo( newTodo ))  
     }
-
-
 }
+

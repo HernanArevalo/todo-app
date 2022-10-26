@@ -1,9 +1,8 @@
 import { TodoItem } from "./components/TodoItem"
 import { useSelector, useDispatch } from 'react-redux'
-import { addNewCategory, setActiveCategory } from "../store/todos"
 import { useForm } from "../hooks/useForm"
 import { startLogout } from "../store/auth"
-import { startNewCategory, startNewTodo } from "../store/todos/thunks"
+import { startNewCategory, startNewTodo } from "../store/todos"
 import { CategoryItem } from "./components/CategoryItem"
 
 export const TodosPage = () => {
@@ -32,8 +31,6 @@ export const TodosPage = () => {
     }
 
     const addButton = document.querySelectorAll('.add-todo-icon')
-
-    addButton.disabled = true
 
 
     const addTodo = () => { dispatch( startNewTodo('todo', activeCategoryId ))};

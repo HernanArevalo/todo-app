@@ -44,6 +44,10 @@ body{
     color: black;
     transition: .3s;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .category-active{
@@ -57,6 +61,24 @@ body{
 
 }
 
+.delete-category-button{
+    border: none;
+    background-color: transparent;
+    font-size: 25px;
+    border-radius: 999px;
+    padding: 0;
+    height: 25px;
+    color: #808080;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+}
+.delete-category-button:hover{
+    background-color: rgba(255, 103, 103, .5);
+    color: black;
+}
+.delete-category-button i{
+    margin: auto;
+}
 .add-category-button:enabled{
     background-color: rgb(96, 192, 112);
     padding: 4px;
