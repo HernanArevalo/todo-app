@@ -1,7 +1,6 @@
-import { collectionGroup, collection, doc, setDoc, getDoc, getDocs, deleteDoc } from "firebase/firestore/lite";
+import { collection, doc, setDoc, getDocs, deleteDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
 import { loadCategories } from "../../helpers/loadCategories";
-import { loadTodos } from "../../helpers/loadTodos";
 import { addNewCategory, savingNewCategory, setActiveCategory, setActiveCategoryTodos, setActiveTodo, setCategories, setNewTodo } from "./todosSlice"
 
 
