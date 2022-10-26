@@ -151,6 +151,7 @@ export const startDeletingCategory = ( id ) => {
 
         dispatch( setCategories( categoriesUploaded ));
         await deleteDoc(doc(FirebaseDB, `${ uid }/${id}`));
+        dispatch(setActiveCategory(categories[0]))
     }
 }
 
