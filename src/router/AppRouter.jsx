@@ -19,11 +19,11 @@ export const AppRouter = () => {
 
          {
            (status === 'authenticated')
-            ? <Route path="/*" element={ <TodosPage /> } />
+            ? <Route path="/" element={ <TodosPage /> } />
             : <Route path="/auth/*" element={ <AuthRoutes /> } />
          }
 
-        <Route path='/*' element={ <Navigate to='/auth/login' />  } />
+        <Route path='/*' element={ status === 'authenticated'? <Navigate to='/' />: <Navigate to='/auth/*' /> } />
         
       </Routes>
 

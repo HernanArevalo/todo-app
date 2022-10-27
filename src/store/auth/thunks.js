@@ -19,7 +19,7 @@ export const startGoogleSignIn = () => {
         const result = await singInWithGoogle();
         if ( !result.ok ) return dispatch( logout( result.errorMessage ) );
 
-        dispatch( login( result ))
+        dispatch( login( result ) )
 
     }
 }
