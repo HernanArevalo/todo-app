@@ -102,7 +102,7 @@ export const RegisterPage = () => {
               <Grid item xs={ 12 }>
                 <Button 
                   disabled={ isCheckingAuthentication }
-                  sx={{ backgroundColor: 'green' }}
+                  color="success"
                   type="submit"
                   variant='contained' 
                   fullWidth>

@@ -82,7 +82,7 @@ export const LoginPage = () => {
               <Grid item xs={ 12 } sm={ 6 }>
                 <Button
                   disabled={ isAuthenticating }
-                  sx={{ backgroundColor: 'green' }}
+                  color="success"
                   type="submit" 
                   variant='contained' 
                   fullWidth>
@@ -92,7 +92,7 @@ export const LoginPage = () => {
               <Grid item xs={ 12 } sm={ 6 }>
                 <Button
                    disabled={ isAuthenticating }
-                   sx={{ backgroundColor: 'green' }}
+                   color="success"
                    variant='contained' 
                    fullWidth
                    onClick={ onGoogleSignIn }>
