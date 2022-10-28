@@ -8,19 +8,12 @@ export const TodoItem = ({ todo }) => {
 
   const dispatch = useDispatch();
   const activeTodoId = useSelector( (state) => state.todos.activeTodo?.id );
+  const { isSaving } = useSelector( state => state.todos );
 
-
-  const { formState, handleInputChange, handleResetForm, title, description } = useForm({
+  const { formState, handleInputChange, title, description } = useForm({
     title: todo.title,
     description: todo.description,
   });
-
-  const [ElementClicked, setElementClicked] = useState(null);
-
-//   window.onclick = e => {
-//     setElementClicked(e.target);
-//     console.log(ElementClicked);  // to get the element
-// };
 
   useEffect(() => {
 
@@ -78,17 +71,23 @@ export const TodoItem = ({ todo }) => {
         { TodoFocus && todo.id == activeTodoId ?
           <div className="icons-todo-item animate__animated animate__fadeInDown">
               <button className="todo-button todo-arrow-button" 
-                      disabled={todo.type === 'todo'}
-                      onClick={ onClickLeftArrow }
-                ><i className='bx bx-left-arrow-alt' ></i>
+                      disabled={todo.type === 'todo' || isSaving == true }
+                      onClick={ onClickLeftArrow }>
+                  <i className='bx bx-left-arrow-alt' ></i>
               </button>
               <button className="todo-button todo-arrow-button" 
-                      disabled={todo.type === 'completed'}
-                      onClick={ onClickRightArrow }
-                ><i className='bx bx-right-arrow-alt'></i>
+                      disabled={todo.type === 'completed' || isSaving == true }
+                      onClick={ onClickRightArrow }>
+                  <i className='bx bx-right-arrow-alt'></i>
               </button>
-              <button className="todo-button"><i className='bx bx-save' onClick={ () => {} }></i></button>
-              <button className="todo-button"><i className='bx bx-trash' onClick={ OnClickDeleteTodo }></i></button>
+              <button className="todo-button todo-save-button"
+                      disabled={ isSaving == true }>
+                  <i className='bx bx-save' onClick={ () => {} }></i>
+              </button>
+              <button className="todo-button todo-delete-button"
+                      disabled={ isSaving == true }>
+                  <i className='bx bx-trash' onClick={ OnClickDeleteTodo }></i>
+              </button>
           </div>
           :''
         }

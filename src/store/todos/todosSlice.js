@@ -21,6 +21,14 @@ export const todosSlice = createSlice({
         //     type: ''
     },
     reducers: {
+        isSaving: (state, action ) => {
+            state.isSaving = true
+        },
+
+        notSaving: (state, action ) => {
+            state.isSaving = false
+        },
+
         addNewCategory: (state, action ) => {
             state.categories.push({
                 name: action.payload.name,
@@ -68,13 +76,14 @@ export const todosSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addNewCategory,
-               savingNewCategory,
-               setActiveCategory,
-               setActiveCategoryTodos,
-               setActiveTodo,
-               setCategories,
-               setNewTodo,
-            
-            
+export const { 
+                isSaving,
+                notSaving,
+                addNewCategory,
+                savingNewCategory,
+                setActiveCategory,
+                setActiveCategoryTodos,
+                setActiveTodo,
+                setCategories,
+                setNewTodo,
             } = todosSlice.actions;

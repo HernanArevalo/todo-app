@@ -1,12 +1,12 @@
 import { collection, doc, setDoc, getDocs, deleteDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
 import { loadCategories } from "../../helpers/loadCategories";
-import { addNewCategory, savingNewCategory, setActiveCategory, setActiveCategoryTodos, setActiveTodo, setCategories, setNewTodo } from "./todosSlice"
+import { addNewCategory, isSaving, notSaving, savingNewCategory, setActiveCategory, setActiveCategoryTodos, setActiveTodo, setCategories, setNewTodo } from "./todosSlice"
 
 
 export const startNewCategory = ( categoryName ) => {
     return async(dispatch, getState) => {
-
+        dispatch( isSaving() );
         dispatch( savingNewCategory )
 
         const { uid } = getState().auth;
@@ -20,13 +20,13 @@ export const startNewCategory = ( categoryName ) => {
         
         newCategory.id = newDoc.id;  
 
-        dispatch( addNewCategory( newCategory ))
+        dispatch( addNewCategory( newCategory ));
+        dispatch( notSaving() );
 }};
 
 export const startNewTodo = ( typeOfTodo, categoryId  ) => {
     return async(dispatch, getState) => {
-
-        // dispatch( savingNewCategory )
+        dispatch( isSaving() );
 
         const { uid } = getState().auth;
 
@@ -35,16 +35,19 @@ export const startNewTodo = ( typeOfTodo, categoryId  ) => {
             title: '',
             description: '',
         }
-
-        dispatch( setNewTodo( newTodo ));
-
+        
         const newDoc = doc( collection( FirebaseDB, `${ uid }/${categoryId}/todos`));
         await setDoc( newDoc, newTodo );
         
+        newTodo.id = newDoc.id
+        dispatch( setNewTodo( newTodo ));
+
+        dispatch( notSaving() );
 }};
 
 export const startLoadingCategories = () => {
     return async(dispatch, getState) =>{
+        dispatch( isSaving() );
 
         const { uid } = getState().auth;
         if ( !uid ) throw new Error('El UID del usuario no existe');
@@ -52,14 +55,15 @@ export const startLoadingCategories = () => {
         const categories = await loadCategories ( uid );
 
         dispatch( setCategories( categories ) );
+        dispatch( notSaving() );
 }};
 
 export const startActiveCategory = ( name, id ) => {
     return async(dispatch, getState) =>{
-        
         const { uid } = getState().auth;
-
         const todos = []
+
+        dispatch( isSaving() );
 
         const collectionRef = collection( FirebaseDB, `${ uid }/${id}/todos` );
         const docs = await getDocs(collectionRef);
@@ -75,7 +79,7 @@ export const startActiveCategory = ( name, id ) => {
         }
 
         dispatch( setActiveCategory( activeCategory ) );
-
+        dispatch( notSaving() );
 }};
 
 export const startActiveTodo = ( todo ) => {
@@ -89,6 +93,8 @@ export const startLoadingTodos = ( id ) => {
     return async(dispatch, getState ) => {
         const { uid } = getState().auth;
 
+        dispatch( isSaving() );
+
         console.log('startLoadingTodos')
         const todos = [];
 
@@ -100,6 +106,7 @@ export const startLoadingTodos = ( id ) => {
         });
 
         dispatch( setActiveCategoryTodos( todos ));
+        dispatch( notSaving() );
 }};
 
 export const startSavingTodo = ( newTitle, newDescription ) =>{
@@ -109,7 +116,7 @@ export const startSavingTodo = ( newTitle, newDescription ) =>{
         const activeTodoId = getState().todos.activeTodo?.id;
         const activeTodoType = getState().todos.activeTodo?.type;
 
-
+        dispatch( isSaving() );
 
         const newActiveTodo = {
             description: newDescription,
@@ -122,7 +129,7 @@ export const startSavingTodo = ( newTitle, newDescription ) =>{
 
         const newDoc = doc( FirebaseDB, `${ uid }/${activeCategoryId}/todos/${activeTodoId}` );
         await setDoc( newDoc, newActiveTodo );
-
+        dispatch( notSaving() );
 }};
 
 export const startDeletingTodo = ( todoId ) =>{
@@ -162,6 +169,8 @@ export const startChangeTodoType = ( arrowDirection ) => {
         const todos = getState().todos.activeCategory?.todos;
         const todo = getState().todos.activeTodo;
 
+        dispatch( isSaving() );
+
         var newType = ''
 
         if (todo.type == 'todo'){
@@ -188,7 +197,9 @@ export const startChangeTodoType = ( arrowDirection ) => {
                         }
                         );
                         
-        dispatch( setActiveTodo( newTodo ))  
+        dispatch( setActiveTodo( newTodo ));
+
+        dispatch( notSaving() );
     }
 }
 

@@ -98,8 +98,8 @@ body{
     cursor: auto;
     opacity: .6;
 }
-/* ! MAIN CONTAINER */
 
+/* ! MAIN CONTAINER */
 
 .header-container{
     display: flex;
@@ -130,17 +130,27 @@ body{
     margin-left: 20px;
     cursor: pointer;
     transition: .3s ease-in-out;
+    padding: 0;
+    border: 0px;
 
 }
 .logout-button:hover{
     background-color: rgb(96, 192, 112);
     color: #fff;
 }
-
-
+.logout-button:disabled{
+    opacity: .4;
+    transition: 0s;
+}
+.logout-button:hover:disabled{
+    opacity: .4;
+    background-color: #fff;
+    color: rgb(96, 192, 112);
+    cursor: auto;
+}
 .logout-button i{
-    margin-left: 5px;
-    line-height: 40px;
+    font-size: 20px;
+    margin-right: 5px;
 }
 
 .todos-types{
@@ -251,23 +261,29 @@ body{
     color: white;
 
 }
-.bx-save{
-    color: green;
 
-}
-.bx-save:hover{
+.todo-save-button:hover:enabled{
     background-color: green;
     color: white;
 }
-
-.bx-trash{
+.todo-save-button{
+    color: green;
+}
+.todo-delete-button{
     color: red;
 }
-.bx-trash:hover{
+.todo-delete-button:hover:enabled{
     background-color: red;
     color: white;
 }
 
+.todo-button:disabled{
+    opacity: .4;
+    cursor: auto;
+}
+.bx:disabled{
+    cursor: default;
+}
 
 .icons-todo-item{
     width: 100%;

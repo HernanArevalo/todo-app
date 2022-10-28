@@ -8,16 +8,15 @@ import { CategoryItem } from "./components/CategoryItem"
 export const TodosPage = () => {
     
     const dispatch = useDispatch();
-    const categories = useSelector((state) => state.todos.categories );
+
     const { displayName } = useSelector( state => state.auth );
-    const activeCategoryName = useSelector((state) => state.todos.activeCategory?.name );
-    const activeCategoryId = useSelector((state) => state.todos.activeCategory?.id );
+    const { categories, isSaving } = useSelector( state => state.todos );
+    const activeCategoryName = useSelector( state => state.todos.activeCategory?.name );
+    const activeCategoryId = useSelector( state => state.todos.activeCategory?.id );
     const activeCategoryTodos = useSelector(state => state.todos.activeCategory?.todos );
 
-    const { formState, handleInputChange, handleResetForm, newCategory, todoTitle, todoDescription } = useForm({
+    const { formState, handleInputChange, handleResetForm, newCategory, } = useForm({
         newCategory: '',
-        todoTitle: '',
-        todoDescription: ''
     });
 
 
@@ -29,9 +28,6 @@ export const TodosPage = () => {
         }
         handleResetForm();
     }
-
-    const addButton = document.querySelectorAll('.add-todo-icon')
-
 
     const addTodo = () => { dispatch( startNewTodo('todo', activeCategoryId ))};
     const addDoing = () => { dispatch( startNewTodo('doing', activeCategoryId ))};
@@ -77,9 +73,9 @@ export const TodosPage = () => {
                     </div>
                     <div className="logged-header">
                         <div className="user-name">{ displayName }</div>
-                        <div className="logout-button" onClick={ onLogout }>
+                        <button className="logout-button" onClick={ onLogout } disabled={ isSaving == true }>
                             <i className='bx bx-log-out'></i>
-                        </div>
+                        </button>
                     </div>
 
                 </div>
@@ -87,7 +83,7 @@ export const TodosPage = () => {
                     <div className="todos todos-type">
                         <div className="todos-type-header">
                             <span>To Do</span>
-                            <button className="add-todo-icon" disabled={activeCategoryId == null}
+                            <button className="add-todo-icon" disabled={activeCategoryId == null || isSaving == true }
                                     onClick={ addTodo }>
                                 <i className='bx bx-plus'></i>
                             </button>
@@ -102,7 +98,7 @@ export const TodosPage = () => {
                     <div className="doing todos-type">
                         <div className="todos-type-header">
                             <span>Doing</span>
-                            <button className="add-todo-icon" disabled={activeCategoryId == null}
+                            <button className="add-todo-icon" disabled={ activeCategoryId == null || isSaving == true }
                                     onClick={ addDoing }>
                                 <i className='bx bx-plus'></i>
                             </button>
@@ -117,7 +113,7 @@ export const TodosPage = () => {
                     <div className="completed todos-type">
                         <div className="todos-type-header">
                             <span>Completed</span>
-                            <button className="add-todo-icon" disabled={activeCategoryId == null}
+                            <button className="add-todo-icon" disabled={activeCategoryId == null || isSaving == true }
                                     onClick={ addCompleted }>
                                 <i className='bx bx-plus'></i>
                             </button>
