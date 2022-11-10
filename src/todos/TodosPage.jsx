@@ -4,6 +4,7 @@ import { useForm } from "../hooks/useForm"
 import { startLogout } from "../store/auth"
 import { startNewCategory, startNewTodo } from "../store/todos"
 import { CategoryItem } from "./components/CategoryItem"
+import { motion, AnimatePresence } from 'framer-motion'
 
 export const TodosPage = () => {
     
@@ -80,7 +81,8 @@ export const TodosPage = () => {
 
                 </div>
                 <div className="todos-types animate__animated animate__fadeIn">
-                    <div className="todos todos-type">
+                    <motion.div layout
+                                className="todos todos-type">
                         <div className="todos-type-header">
                             <span>To Do</span>
                             <button className="add-todo-icon" disabled={activeCategoryId == null || isSaving == true }
@@ -88,29 +90,36 @@ export const TodosPage = () => {
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
-                        
+
+                        <AnimatePresence>
                         { activeCategoryTodos?.filter(todo => todo.type == 'todo').map( todo =>
                             <TodoItem todo={todo} key={ todo.id } /> 
 
                         )}
+                        </AnimatePresence>
 
-                    </div>
-                    <div className="doing todos-type">
-                        <div className="todos-type-header">
-                            <span>Doing</span>
-                            <button className="add-todo-icon" disabled={ activeCategoryId == null || isSaving == true }
-                                    onClick={ addDoing }>
-                                <i className='bx bx-plus'></i>
-                            </button>
-                        </div>
+                    </motion.div>
+                    <motion.div layout
+                                  className="doing todos-type">
+                            <div className="todos-type-header">
+                                <span>Doing</span>
+                                <button className="add-todo-icon" disabled={ activeCategoryId == null || isSaving == true }
+                                        onClick={ addDoing }>
+                                    <i className='bx bx-plus'></i>
+                                </button>
+                            </div>
 
-                        { activeCategoryTodos?.filter(todo => todo.type == 'doing').map( todo => 
-                            <TodoItem todo={todo} key={ todo.id }/> 
+                            <AnimatePresence>
+                                { activeCategoryTodos?.filter(todo => todo.type == 'doing').map( todo => 
+                                    <TodoItem todo={todo} key={ todo.id }/> 
 
-                        )}
+                                )}  
 
-                    </div>
-                    <div className="completed todos-type">
+                            </AnimatePresence>
+
+                    </motion.div>
+                    <motion.div layout
+                                className="completed todos-type">
                         <div className="todos-type-header">
                             <span>Completed</span>
                             <button className="add-todo-icon" disabled={activeCategoryId == null || isSaving == true }
@@ -119,11 +128,12 @@ export const TodosPage = () => {
                             </button>
                         </div>
 
-                        { activeCategoryTodos?.filter(todo => todo.type == 'completed').map( todo => 
-                            <TodoItem todo={todo} key={ todo.id }/> 
-                        )}
-
-                    </div>
+                        <AnimatePresence>
+                            { activeCategoryTodos?.filter(todo => todo.type == 'completed').map( todo => 
+                                <TodoItem todo={todo} key={ todo.id }/> 
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
 
                 </div>
             </div>

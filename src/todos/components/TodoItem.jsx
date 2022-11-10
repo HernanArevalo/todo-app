@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
 import { startActiveTodo, startChangeTodoType, startDeletingTodo, startSavingTodo } from "../../store/todos/thunks";
+import { motion } from 'framer-motion'
 
 export const TodoItem = ({ todo }) => {
 
@@ -48,9 +49,30 @@ export const TodoItem = ({ todo }) => {
     dispatch( startChangeTodoType( 'right' ) );
   }
 
+  const variants = {
+    hidden: {
+      opacity: 0
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 1
+      }
+    }
+  }
 
   return (
-    <div className="todo-item" key={ todo.id } id={ todo.id } onClick={ onClickTodoItem }>
+    <motion.div className="todo-item" 
+                key={ todo.id } 
+                id={ todo.id } 
+                onClick={ onClickTodoItem }
+                initial={'hidden'}
+                animate={'visible'}
+                variants={variants}
+                exit={'hidden'}
+                layout={todo.id}
+
+                >
 
         <textarea className="input-title" 
                   onChange={ handleInputChange }
@@ -91,7 +113,7 @@ export const TodoItem = ({ todo }) => {
           </div>
           :''
         }
-    </div>
+    </motion.div>
 
   )
 }
