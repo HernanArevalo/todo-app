@@ -36,7 +36,7 @@ export const TodosPage = () => {
 
     const onLogout = () => { dispatch( startLogout() ) };
 
-
+    const typesOfTodos = [['todo','To Do'],['doing', 'Doing'],['completed', 'Completed']]
 
 
     return (
@@ -81,6 +81,7 @@ export const TodosPage = () => {
 
                 </div>
                 <div className="todos-types animate__animated animate__fadeIn">
+
                     <motion.div layout
                                 className="todos todos-type">
                         <div className="todos-type-header">

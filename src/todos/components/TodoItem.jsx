@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
 import { startActiveTodo, startChangeTodoType, startDeletingTodo, startSavingTodo } from "../../store/todos/thunks";
 import { motion } from 'framer-motion'
+import { savingActiveTodo, setActiveTodo } from "../../store/todos";
 
 export const TodoItem = ({ todo }) => {
 
@@ -19,21 +20,23 @@ export const TodoItem = ({ todo }) => {
   useEffect(() => {
 
     if (activeTodoId !== undefined){
-      dispatch( startSavingTodo( title, description ) );
+      //dispatch( startSavingTodo( title, description ) );
+
+      // ! TENGO QUE CREAR EL TODO NUEVO CON EL NUEVO TITLE Y DESCR. O CREAR UN NUEVO
+      // ! SLICE QUE RECIBA TITLE Y DESCRIPTION NOMAS
+      dispatch( setActiveTodo( todo ));
     }
 
   }, [ title, description ]);
-  
 
-  // ? disable todo buttons
-  const todoItem = document.querySelector('.todo-item');
-  const [TodoFocus, setTodoFocus] = useState(false);
-  todoItem,addEventListener('focusin', (event)=>{ setTodoFocus(true) });
-  todoItem,addEventListener('focusout', (event)=>{ setTodoFocus(true) });
+  const onClickSaveTodo = (event) => {
+    dispatch( startSavingTodo({title, description}) )
+  }
 
-
-  const onClickTodoItem = () => {
+  const onClickTodoItem = (event) => {
+    event.stopPropagation();
     dispatch( startActiveTodo(todo) );
+
   };
 
   const OnClickDeleteTodo = () => {
@@ -90,7 +93,7 @@ export const TodoItem = ({ todo }) => {
 
         </textarea>
 
-        { TodoFocus && todo.id == activeTodoId ?
+        { true ?
           <div className="icons-todo-item animate__animated animate__fadeInDown">
               <button className="todo-button todo-arrow-button" 
                       disabled={todo.type === 'todo' || isSaving == true }
@@ -103,7 +106,8 @@ export const TodoItem = ({ todo }) => {
                   <i className='bx bx-right-arrow-alt'></i>
               </button>
               <button className="todo-button todo-save-button"
-                      disabled={ isSaving == true }>
+                      disabled={ isSaving == true }
+                      onClick={ onClickSaveTodo }>
                   <i className='bx bx-save' onClick={ () => {} }></i>
               </button>
               <button className="todo-button todo-delete-button"

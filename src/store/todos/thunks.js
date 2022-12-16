@@ -26,7 +26,7 @@ export const startNewCategory = ( categoryName ) => {
 
 export const startNewTodo = ( typeOfTodo, categoryId  ) => {
     return async(dispatch, getState) => {
-        dispatch( isSaving() );
+        // dispatch( isSaving() );
 
         const { uid } = getState().auth;
 
@@ -119,9 +119,9 @@ export const startSavingTodo = ( newTitle, newDescription ) =>{
         dispatch( isSaving() );
 
         const newActiveTodo = {
-            description: newDescription,
             type: activeTodoType,
-            title: newTitle
+            title: newTitle,
+            description: newDescription,
         };
 
         dispatch( setActiveTodo( { id:activeTodoId, ...newActiveTodo} ));
@@ -203,3 +203,4 @@ export const startChangeTodoType = ( arrowDirection ) => {
     }
 }
 
+// ! NEW THUNKS

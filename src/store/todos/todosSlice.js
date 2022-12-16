@@ -8,13 +8,13 @@ export const todosSlice = createSlice({
         messageSaved: '',
         categories: [],
         activeCategory: null,
-        // ActiveCategory: {
+        // activeCategory: {
         //     id: 'ABC123',
         //     name: '',
         //     todos: []
         // }
         activeTodo: null,
-        // active: {
+        // activeTodo: {
         //     id: 'ABC123',
         //     title: '',
         //     description: '',
@@ -41,6 +41,15 @@ export const todosSlice = createSlice({
 
         savingNewCategory: ( state ) => {
             state.isSaving = true;
+        },
+
+        savingActiveTodo: ( state, action ) => {
+            console.log(state.activeTodo)
+            console.log(action.payload)
+            state.activeTodo.title = action.payload.title;
+            state.activeTodo.description = action.payload.description;
+            console.log(state.activeTodo)
+            // state.activeTodo = action.payload;
         },
 
         setActiveCategory: ( state, action ) => {
@@ -81,6 +90,7 @@ export const {
                 notSaving,
                 addNewCategory,
                 savingNewCategory,
+                savingActiveTodo,
                 setActiveCategory,
                 setActiveCategoryTodos,
                 setActiveTodo,
