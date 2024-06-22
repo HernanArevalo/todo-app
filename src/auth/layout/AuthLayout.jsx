@@ -10,7 +10,7 @@ export const AuthLayout = ({ children, title = '' }) => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ minHeight: '100vh', backgroundColor: '#aed581', padding: 4 }}
+      sx={{ minHeight: '100vh', padding: 4 }}
     >
 
       <Grid item
