@@ -128,7 +128,7 @@ export const startSavingTodo = ( newTitle, newDescription ) =>{
 
 
         const newDoc = doc( FirebaseDB, `${ uid }/${activeCategoryId}/todos/${activeTodoId}` );
-        await setDoc( newDoc, newActiveTodo );
+        await setDoc( newDoc, newActiveTodo, { merge: true } );
         dispatch( notSaving() );
 }};
 
@@ -202,5 +202,3 @@ export const startChangeTodoType = ( arrowDirection ) => {
         dispatch( notSaving() );
     }
 }
-
-// ! NEW THUNKS

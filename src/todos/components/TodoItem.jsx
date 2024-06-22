@@ -30,7 +30,7 @@ export const TodoItem = ({ todo }) => {
   }, [ title, description ]);
 
   const onClickSaveTodo = (event) => {
-    dispatch( startSavingTodo({title, description}) )
+    dispatch( startSavingTodo(title, description) )
   }
 
   const onClickTodoItem = (event) => {
